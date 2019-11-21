@@ -1,12 +1,12 @@
 {
     "ID": "509AF5C7ED2D413C9B48307B59AE69F4",
     "ActionKeyword": "nbp",
-    "Name": "Node bundlephobia",
+    "Name": "wox npm bundlephobia plugin",
     "Description": "find the cost of adding a npm package to your bundle",
     "Author": "skt-t1-byungi",
     "Version": "0.0.1",
     "Language": "executable",
-    "Website": "https://github.com/skt-t1-byungi/wox-bundlephobia",
+    "Website": "https://github.com/skt-t1-byungi/wox-npm-bundlephobia",
     "IcoPath": "icon.png",
-    "ExecuteFileName": "wox-bundlephobia.exe"
+    "ExecuteFileName": "wox-npm-bundlephobia.exe"
 }

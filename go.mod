@@ -1,4 +1,4 @@
-module github.com/skt-t1-byungi/wox-bundlephobia
+module github.com/skt-t1-byungi/wox-npm-bundlephobia
 
 go 1.13
 
