@@ -2,10 +2,8 @@
 wox npm bundlephobia plugin.
 
 ## Install
-Enter the following command in [Wox](http://www.wox.one/).
-```
-wpm install npm-bundlephobia
-```
+1. Download `wox-npm-bundlephobia.wox` file from [Rerelease](https://github.com/skt-t1-byungi/wox-npm-bundlephobia/releases).
+2. Drop the file in the Wox window.
 
 ## Demo
 
