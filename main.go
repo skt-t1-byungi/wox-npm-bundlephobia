@@ -11,13 +11,13 @@ import (
 	"github.com/skratchdot/open-golang/open"
 )
 
-type jsonRpcRequest struct {
+type jsonRPCRequest struct {
 	Persist    bool          `json:"DontHideAfterAction"`
 	Method     string        `json:"method"`
 	Parameters []interface{} `json:"parameters"`
 }
 
-type jsonRpcResponse struct {
+type jsonRPCResponse struct {
 	Result []resultItem
 }
 
@@ -25,7 +25,7 @@ type resultItem struct {
 	Title    string          `json:"Title"`
 	SubTitle string          `json:"SubTitle"`
 	IcoPath  string          `json:"IcoPath"`
-	Action   *jsonRpcRequest `json:"JsonRPCAction,omitempty"`
+	Action   *jsonRPCRequest `json:"JsonRPCAction,omitempty"`
 }
 
 type suggestion struct {
@@ -40,7 +40,7 @@ type detail struct {
 }
 
 func main() {
-	req, err := parseRpcRequest(os.Args[1])
+	req, err := parseRPCRequest(os.Args[1])
 	if err != nil {
 		return
 	}
@@ -58,16 +58,16 @@ func main() {
 	}
 }
 
-func parseRpcRequest(str string) (*jsonRpcRequest, error) {
-	var ret *jsonRpcRequest
+func parseRPCRequest(str string) (*jsonRPCRequest, error) {
+	var ret *jsonRPCRequest
 	if err := json.Unmarshal([]byte(str), &ret); err != nil {
 		return nil, err
 	}
 	return ret, nil
 }
 
-func sendRpcResultItems(result []resultItem) error {
-	b, err := json.Marshal(jsonRpcResponse{Result: result})
+func sendRPCResultItems(result []resultItem) error {
+	b, err := json.Marshal(jsonRPCResponse{Result: result})
 	if err != nil {
 		return err
 	}
@@ -97,14 +97,14 @@ func handlePkgSuggestion(q string) {
 			Title:    suggestion.Name,
 			SubTitle: suggestion.Description,
 			IcoPath:  "icon.png",
-			Action: &jsonRpcRequest{
+			Action: &jsonRPCRequest{
 				Persist:    true,
 				Method:     "Wox.ChangeQuery",
 				Parameters: []interface{}{"nbp " + suggestion.Name + "!", true},
 			},
 		}
 	}
-	_ = sendRpcResultItems(items)
+	_ = sendRPCResultItems(items)
 }
 
 func handleDetail(q string) {
@@ -120,7 +120,7 @@ func handleDetail(q string) {
 	}
 
 	if detail.Error != nil {
-		_ = sendRpcResultItems([]resultItem{
+		_ = sendRPCResultItems([]resultItem{
 			{
 				Title:    "Not found : " + q,
 				SubTitle: "The package you were looking for doesn't exist.",
@@ -130,12 +130,12 @@ func handleDetail(q string) {
 		return
 	}
 
-	_ = sendRpcResultItems([]resultItem{
+	_ = sendRPCResultItems([]resultItem{
 		{
 			Title:    fmt.Sprintf("minified: %s, gzipped: %s", human.Bytes(detail.Size), human.Bytes(detail.Gzip)),
 			SubTitle: "Open your browser for more information.",
 			IcoPath:  "icon.png",
-			Action: &jsonRpcRequest{
+			Action: &jsonRPCRequest{
 				Method:     "openBrowser",
 				Parameters: []interface{}{q},
 			},
